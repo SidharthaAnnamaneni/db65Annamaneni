@@ -1,9 +1,7 @@
-var express = require("express");
-var router = express.Router();
-
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("kites", { title: "Search Results Kites" });
-});
-
-module.exports = router;
+var express = require('express'); 
+const kites_controlers= require('../controllers/kites'); 
+var router = express.Router(); 
+ 
+/* GET costumes */ 
+router.get('/', kites_controlers.kites_view_all_Page ); 
+module.exports = router; 

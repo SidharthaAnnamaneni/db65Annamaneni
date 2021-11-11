@@ -32,3 +32,16 @@ exports.kites_delete = function(req, res) {
 exports.kites_update_put = function(req, res) { 
     res.send('NOT IMPLEMENTED: kites update PUT' + req.params.id); 
 }; 
+
+// VIEWS 
+// Handle a show all view 
+exports.kites_view_all_Page = async function(req, res) { 
+    try{ 
+        theKites = await kites.find(); 
+        res.render('kites', { title: 'Kites Search Results', results: theKites }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+}; 

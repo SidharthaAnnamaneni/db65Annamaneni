@@ -18,10 +18,26 @@ exports.kites_detail = function(req, res) {
     res.send('NOT IMPLEMENTED: kites detail: ' + req.params.id); 
 }; 
  
-// Handle Costume create on POST. 
-exports.kites_create_post = function(req, res) { 
-    res.send('NOT IMPLEMENTED: kites create POST'); 
-}; 
+// Handle kites create on POST. 
+exports.kites_create_post = async function(req, res) { 
+    console.log(req.body) 
+    let document = new kites(); 
+    // We are looking for a body, since POST does not have query parameters. 
+    // Even though bodies can be in many different formats, we will be picky 
+    // and require that it be a json object 
+    // {"costume_type":"goat", "cost":12, "size":"large"} 
+    document.name = req.body.name; 
+    document.color = req.body.color; 
+    document.cost = req.body.cost; 
+    try{ 
+        let result = await document.save(); 
+        res.send(result); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+};  
  
 // Handle Costume delete form on DELETE. 
 exports.kites_delete = function(req, res) { 

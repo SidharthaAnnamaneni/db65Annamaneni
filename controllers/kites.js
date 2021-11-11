@@ -1,9 +1,17 @@
 var kites = require('../models/kites'); 
  
-// List of all Costumes 
-exports.kites_list = function(req, res) { 
-    res.send('NOT IMPLEMENTED: kites list'); 
+// List of all kites
+exports.kites_list = async function(req, res) { 
+    try{ 
+        theKites = await kites.find(); 
+        res.send(theKites); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
 }; 
+ 
  
 // for a specific Costume. 
 exports.kites_detail = function(req, res) { 

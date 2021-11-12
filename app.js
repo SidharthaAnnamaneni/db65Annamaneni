@@ -62,7 +62,7 @@ app.use(function(err, req, res, next) {
 async function recreateDB(){
   // Delete everything
   await Kites.deleteMany();
-  var results = [{"name":"Delta kites","color":'blue',"cost":30},
+  var results = [{"name":"gamma kites","color":'green',"cost":3},
                  {"name":"Parafoil Kites","color":'pink',"cost":25},
                  {"name":"Cellular Kites", "color":'White',"cost":40}]
  for(i in results){

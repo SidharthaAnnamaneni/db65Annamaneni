@@ -5,16 +5,25 @@ block content
   if (toShow == null) 
     h2 No instance to delete 
   else 
-  form(id='KitesForm', action="/resource/kites", method="POST") 
+  - let kitesid = toShow.id 
+  - let name = toShow.name
+  - let color = toShow.color 
+  - let cost = toShow.cost 
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{kitesid} 
+  - let actionid = "/resource/kites/" + kitesid 
+  form(id='KitesForm', action= actionid, method="PUT") 
     div.form-group 
         label.kitesAttr(for='name') Name
-        input#name(type='text', name='name') 
+        input#name(type='text', name='name', value= name ) 
     div.form-group 
-        label.kitesAttr(for='color') Color 
-        input#color(type='number', name='color') 
+        label.kitesAttr(for='size') Color  
+        input#color(type='text', name='color', value= color ) 
     div.form-group 
-        label.kitesAttr(for='cost') Cost
-        input#cost(type='text', name='cost') 
+        label.costumeAttr(for='cost') Cost 
+        input#cost(type='number', name='cost', value= cost ) 
     input(type="submit") 
  
   script. 
@@ -22,15 +31,16 @@ block content
       event.preventDefault(); 
       // TODO do something here to show user that form is being submitted 
       fetch(event.target.action, { 
-        method: 'POST', 
+        method: 'PUT', 
         body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
       }).then((resp) => { 
         return resp.json(); // or resp.text() or whatever the server sends 
       }).then((body) => { 
-        alert("Save succeded") 
+        alert("Update succeded") 
         // TODO handle body 
       }).catch((error) => { 
         // TODO handle error 
-        alert("Save failed " + error ) 
+        alert("Update failed " + error ) 
       }); 
-    });
+    }); 
+ 

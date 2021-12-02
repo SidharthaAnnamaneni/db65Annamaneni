@@ -1,19 +1,51 @@
+//- extends layout
+
+//- block content
+//-   h1= title
+//-   - let items = results
+//-   p Search Results Kites
+//-   p
+//-   div(class="container-fluid")
+//-         div(class="row")
+//-             each v,index in items
+//-                 div(class="col-sm-2" onclick=`buy(${index})`) #{v.name}
+//-                 div(class="col-sm-2" onclick=`buy(${index})`) #{v.color}
+//-                 div(class="col-sm-2" onclick=`buy(${index})`) #{v.cost}
+//-                   button.btn( class="btn-primary ml-1", onclick= destination) Update 
+//-   script.                
+//-         function buy(intemNo)
+//-         {
+//-               alert(`you purchased Item ${intemNo+1}`)
+//-         }
+
 extends layout
 
 block content
   h1= title
-  - let items = results
-  p Search Results Kites
-  p
-  div(class="container-fluid")
+  
+  p Search Results kites 
+            
+    div(class="container-fluid")
         div(class="row")
-            each v,index in items
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.name}
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.color}
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.cost}
-                  button.btn( class="btn-primary ml-1", onclick= destination) Update 
-  script.                
+            - let destination1 = `dispatch(\"/kites/create\")`
+            button.btn(class="btn-success ms-1", style="width: 150px" onclick= destination1) Create            
+            - let kites = results
+            each v, index in kites 
+                - let destination = `dispatch(\"/kites/update?id=${v._id}\")`
+                - let destination2 = `dispatch(\"/kites/delete?id=${v._id}\")`
+                - let destination3 = `dispatch(\"/kites/detail?id=${v._id}\")`
+                div(class="row-sm-2", class="m-1") Item #{v.name} #{v.color} #{v.cost}
+                    button.btn(class="btn-primary ms-1", onclick= destination) Update
+                    button.btn(class="btn-info ms-1", onclick= destination3) Detail
+                    button.btn(class="btn-danger ms-1", onclick= destination2) Delete
+    script.
+      function dispatch(path)
+      {
+        window.location.href=path
+      }
+
+    script.                
         function buy(intemNo)
         {
-              alert(`you purchased Item ${intemNo+1}`)
+           alert(`you purchased Item ${intemNo+1}`)
         }
